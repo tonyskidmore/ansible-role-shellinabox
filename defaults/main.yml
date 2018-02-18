@@ -5,6 +5,7 @@ shellinabox_localhost_only: True
 shellinabox_user: "shellinabox"
 shellinabox_group: "shellinabox"
 
+shellinabox_apache_fqdn: localhost.localdomain
 shellinabox_apache_proxy: True
 shellinabox_apache_proxy_dest: "http://localhost:{{ shellinabox_port }}/"
 shellinabox_apache_proxy_http: True

@@ -10,7 +10,7 @@
 {% if shellinabox_apache_proxy_https %}
 <VirtualHost *:443>
 
-    ServerName ansible-1.lab.local.localdomain
+    ServerName {{ shellinabox_apache_fqdn }}
 
     # Logging
     LogLevel warn
