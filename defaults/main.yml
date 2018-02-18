@@ -1,0 +1,18 @@
+---
+shellinabox_disable_ssl: True
+shellinabox_disable_ssl_menu: True
+shellinabox_localhost_only: True
+shellinabox_user: "shellinabox"
+shellinabox_group: "shellinabox"
+
+shellinabox_apache_proxy: True
+shellinabox_apache_proxy_dest: "http://localhost:{{ shellinabox_port }}/"
+shellinabox_apache_proxy_http: True
+shellinabox_apache_proxy_https: True
+shellinabox_apache_ssl_cipher_suite: "EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH"
+shellinabox_apache_ssl_protocol: "All -SSLv2 -SSLv3 -TLSv1 -TLSv1.1"
+shellinabox_apache_ssl_honor_order: "On"
+shellinabox_apache_config_file: "/etc/httpd/conf.d/default-site.conf"
+shellinabox_apache_cert: "/etc/ssl/certs/certificate.pem"
+shellinabox_apache_key: "/etc/ssl/certs/certificate.key"
+

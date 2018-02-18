@@ -1,0 +1,43 @@
+{% if shellinabox_apache_proxy_http %}
+<VirtualHost *:80>
+    ProxyPreserveHost On
+
+    ProxyPass / {{ shellinabox_apache_proxy_dest }}
+    ProxyPassReverse / {{ shellinabox_apache_proxy_dest }}
+</VirtualHost>
+{% endif %}
+
+{% if shellinabox_apache_proxy_https %}
+<VirtualHost *:443>
+
+    ServerName ansible-1.lab.local.localdomain
+
+    # Logging
+    LogLevel warn
+    ErrorLog myapp.centosblog.com-error_log
+    CustomLog myapp.centosblog.com-access_log combined
+
+    # SSL Configuration - uses strong cipher list - these might need to be downgraded if you need to support older browsers/devices
+    SSLEngine on
+    {% if shellinabox_apache_ssl_cipher_suite %}SSLCipherSuite {{ shellinabox_apache_ssl_cipher_suite }}{% endif %}
+    {% if shellinabox_apache_ssl_protocol %}SSLProtocol {{ shellinabox_apache_ssl_protocol }}{% endif %}
+    {% if shellinabox_apache_ssl_honor_order %}SSLHonorCipherOrder {{ shellinabox_apache_ssl_honor_order }}{% endif %}
+    {% if shellinabox_apache_cert %}SSLCertificateFile {{ shellinabox_apache_cert }}{% endif %}
+    {% if shellinabox_apache_key %}SSLCertificateKeyFile {{ shellinabox_apache_key }}{% endif %}
+    # SSLCertificateChainFile /tmp/certificate.pem
+
+    # HSTS (optional)
+    Header always set Strict-Transport-Security "max-age=63072000; includeSubdomains;"
+    # Remove this if you need to use frames or iframes
+    Header always set X-Frame-Options DENY
+    # Prevent MIME based attacks
+    Header set X-Content-Type-Options "nosniff"
+
+    # Reverse proxy configuration
+    <Location />
+        ProxyPass {{ shellinabox_apache_proxy_dest }}
+        ProxyPassReverse {{ shellinabox_apache_proxy_dest }}
+    </Location>
+
+</VirtualHost>
+{% endif %}

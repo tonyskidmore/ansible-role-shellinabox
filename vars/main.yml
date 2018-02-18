@@ -1,0 +1,15 @@
+---
+
+shellinabox_packages:
+  - openssl
+  - shellinabox
+
+shellinabox_apache_packages:
+  - mod_ssl
+
+shellinabox_port: 4200
+
+shellinabox_config_file: /etc/sysconfig/shellinaboxd
+shellinabox_service_name: shellinaboxd.service
+
+

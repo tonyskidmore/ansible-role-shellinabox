@@ -1,0 +1,41 @@
+---
+- name: install packages
+  yum:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  become: yes
+  with_items: "{{ shellinabox_packages }}"
+
+- name: create configuration file
+  template: 
+    src: shellinaboxd.j2 
+    dest: "{{ shellinabox_config_file }}"
+  become: yes
+
+- name: enable and start service
+  service:
+    name: "{{ shellinabox_service_name }}"
+    state: started
+    enabled: yes
+  become: yes
+
+- name: configure apache reverse proxy
+  block:
+  
+    - name: install required apache packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      become: yes
+      with_items: "{{ shellinabox_apache_packages }}"
+
+    - name: create apache configuration file
+      template:
+        src: apache_conf.j2
+        dest: "{{ shellinabox_apache_config_file }}"
+      become: yes
+
+  when: 
+    - shellinabox_apache_proxy is defined
+    - shellinabox_apache_proxy
