@@ -20,10 +20,15 @@
     # SSL Configuration - uses strong cipher list - these might need to be downgraded if you need to support older browsers/devices
     SSLEngine on
     {% if shellinabox_apache_ssl_cipher_suite %}SSLCipherSuite {{ shellinabox_apache_ssl_cipher_suite }}{% endif %}
+
     {% if shellinabox_apache_ssl_protocol %}SSLProtocol {{ shellinabox_apache_ssl_protocol }}{% endif %}
+
     {% if shellinabox_apache_ssl_honor_order %}SSLHonorCipherOrder {{ shellinabox_apache_ssl_honor_order }}{% endif %}
+
     {% if shellinabox_apache_cert %}SSLCertificateFile {{ shellinabox_apache_cert }}{% endif %}
+
     {% if shellinabox_apache_key %}SSLCertificateKeyFile {{ shellinabox_apache_key }}{% endif %}
+
     # SSLCertificateChainFile /tmp/certificate.pem
 
     # HSTS (optional)
