@@ -7,6 +7,24 @@
 </VirtualHost>
 {% endif %}
 
+{% if shellinabox_apache_listen_http %}
+<VirtualHost *:80>
+    ServerName {{ shellinabox_apache_fqdn }}
+
+    DocumentRoot "/var/www/html"
+
+    ErrorLog "logs/error_log"
+    CustomLog "logs/access_log" combined
+
+    <Directory /var/www/html>
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Require all granted
+    </Directory>
+
+</VirtualHost>
+{% endif %}
+
 {% if shellinabox_apache_proxy_https %}
 <VirtualHost *:443>
 
